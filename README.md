@@ -29,6 +29,8 @@ In terminal,
 
 should compile the code.
 
+`java -cp lib/jsoup-1.11.3.jar:lib/opennlp-tools-1.9.0.jar:out nlpproject.LieToMe` to run it.
+
 config.xml in the root folder is important. It contains information about file paths and number of thread settings.
 
 > File Paths : By default all the required files (including the input files) are stored in a folder called "res" in the root directory.
