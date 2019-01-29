@@ -18,6 +18,17 @@ External Libraries used : Apache OpenNLP (1.9.0), JSoup(1.11.3)
 
 *IMPORTANT INFORMATION FOR SETTING UP*:
 
+External libraries used : JSoup and Apache-OpenNLP.\
+The jar files required are present in the 'lib' folder. The 'lib' folder needs to be included in the build path in order to produce a successful build.
+
+The start point of the project, main() is in the 'LieToMe.java' file.
+
+In terminal,
+
+`javac -d out -cp lib/jsoup-1.11.3.jar:lib/opennlp-tools-1.9.0.jar -sourcepath src src/nlpproject/LieToMe.java`
+
+should compile the code.
+
 config.xml in the root folder is important. It contains information about file paths and number of thread settings.
 
 > File Paths : By default all the required files (including the input files) are stored in a folder called "res" in the root directory.
@@ -25,9 +36,6 @@ config.xml in the root folder is important. It contains information about file p
 > If the input files need to be stored elsewhere, please change the corresponding config value in the 'config.xml'.
 >
 > The 'result.ttl' file can be found in the project root folder as well.
-
-External libraries used : JSoup and Apache-OpenNLP.\
-The jar files required are present in the 'lib' folder. The 'lib' folder needs to be included in the build path in order to produce a successful build.
 
 The configuration also contains a 'debug' property. Please set it to 0 (default). \[When debugging is turned on, the program uses a different input file. (All paths in config.) And logs relevant data for debugging on the 'System.out'\]
 
