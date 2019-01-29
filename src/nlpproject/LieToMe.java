@@ -1,35 +1,48 @@
 package nlpproject;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import org.w3c.dom.Document;
+
 public class LieToMe {
 	//public final static boolean DEBUG = true;
-	public final static boolean DEBUG = false;
-	public final static String TEST_FILE = "res/test.tsv";
-	public final static String TRAIN_FILE = "res/train.tsv";
-	public final static String OUTPUT_FILE = "res/output.ttl";
-	public final static String RESULT_FILE = "res/result.ttl";
-	public final static String MINITEST_FILE = "res/minitest.tsv";
-	public final static String MINITESTOUTPUT_FILE = "res/minitestoutput.tsv";
+	public static boolean DEBUG;
+	
+	public static String CONFIG_XML = "config.xml";
+	public static String TEST_FILE;
+	public static String TRAIN_FILE;
+	public static String OUTPUT_FILE;
+	public static String RESULT_FILE;
+	public static String MINITEST_FILE;
+	public static String MINITESTOUTPUT_FILE;
+	public static int NUM_THREADS_WIKIFETCH;
+	public static String KnowledgeBaseXML;
 
 	public static void main(String[] args) {	
 
+		
 		ArrayList<Tenor> tenorList = new ArrayList<Tenor>();	
+
+		init();
+		
+		if(LieToMe.DEBUG) {
+			System.out.println("DEBUG MODE");
+		}
 		
 		System.out.println("Fetching All Sentences.");
 		ArrayList<String> sentenceList;
 		
 		if(DEBUG) {
-			sentenceList = IOProcessor.getAllSentences(MINITEST_FILE);
-		} else {
 			sentenceList = IOProcessor.getAllSentences(TRAIN_FILE);
-		}
-		
-		init();
+		} else {
+			sentenceList = IOProcessor.getAllSentences(TEST_FILE);
+		}	
 		
 		System.out.println("Training processor with models.");
 		long startTime = System.currentTimeMillis();
@@ -37,7 +50,7 @@ public class LieToMe {
 		long endTime = System.currentTimeMillis();
 		System.out.println("Training complete. This took: " + (endTime - startTime) + " seconds.");
 		
-		ExecutorService es = Executors.newFixedThreadPool(10);
+		ExecutorService es = Executors.newFixedThreadPool(NUM_THREADS_WIKIFETCH);
 		
 		startTime = System.currentTimeMillis();
 		System.out.println("Tokenizing sentences. Finding Names and POS.");
@@ -146,7 +159,41 @@ public class LieToMe {
         }
     }
 	
-	public static void init() {
+	public static void init() {		
+		
+		try {
+			Properties prop = new Properties();
+			prop.loadFromXML(new FileInputStream(CONFIG_XML));
+			
+			String debug = prop.getProperty("debug");
+			if(debug.equals("1")) {
+				DEBUG = true;
+			} else {
+				DEBUG = false;
+			}
+			TEST_FILE = prop.getProperty("inputFile");
+			TRAIN_FILE = prop.getProperty("debugInputFile");
+			OUTPUT_FILE = prop.getProperty("outputFile");
+			MINITESTOUTPUT_FILE = prop.getProperty("debugOutputFile");
+			RESULT_FILE = prop.getProperty("resultFile");
+			KnowledgeBaseXML = prop.getProperty("knowledgeFile");
+			NUM_THREADS_WIKIFETCH = Integer.parseInt(prop.getProperty("numThreadsWiki"));
+			
+			System.out.println("Loaded Configuration File.");
+		} catch(Exception ex) {
+			
+			System.out.println("Couldn't load Configuration File." + ex.getMessage());
+			 DEBUG = false;
+			 TEST_FILE = "res/test.tsv";
+			 TRAIN_FILE = "res/train.tsv";
+			 OUTPUT_FILE = "res/output.ttl";
+			 RESULT_FILE = "res/result.ttl";
+			 MINITEST_FILE = "res/minitest.tsv";
+			 MINITESTOUTPUT_FILE = "res/minitestoutput.tsv";
+			 KnowledgeBaseXML = "res/knowledge_base.xml";
+			 NUM_THREADS_WIKIFETCH = 10;
+		}
+		
 		DataManager.init();
 		KnowledgeBase.init();
 	}

@@ -14,13 +14,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class KnowledgeBase {
-	public static final String KnowledgeBaseXML = "res/knowledge_base.xml";
+	
 	public static ConcurrentHashMap<String, ConcurrentHashMap<String, Double>> propertySynonyms;
 	
 	public static void init() {
 		propertySynonyms = new ConcurrentHashMap<String, ConcurrentHashMap<String, Double>>();
 		//System.out.println("Fetching node list..");
-		NodeList nodeList = IOProcessor.readKnowledgeBaseXML(KnowledgeBaseXML);
+		NodeList nodeList = IOProcessor.readKnowledgeBaseXML(LieToMe.KnowledgeBaseXML);
 		if(nodeList != null) {
 			for(int i=0; i<nodeList.getLength(); i++) {
 				Node iNode = nodeList.item(i);
@@ -86,7 +86,7 @@ public class KnowledgeBase {
 			}	
 			
 			
-			IOProcessor.writeKnowledgeBaseToFile(new DOMSource(doc), KnowledgeBaseXML);
+			IOProcessor.writeKnowledgeBaseToFile(new DOMSource(doc), LieToMe.KnowledgeBaseXML);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
