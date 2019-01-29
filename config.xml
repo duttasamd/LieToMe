@@ -6,7 +6,7 @@
     <entry key="debugInputFile">res/train.tsv</entry>
     <entry key="outputFile">res/output.ttl</entry>
     <entry key="debugOutputFile">res/minitestoutput.tsv</entry>
-    <entry key="resultFile">res/result.ttl</entry>
+    <entry key="resultFile">result.ttl</entry>
     <entry key="knowledgeFile">res/knowledge_base.xml</entry>
     <entry key="numThreadsWiki">10</entry>
 </properties>

@@ -103,7 +103,6 @@ public class IOProcessor {
 		    }
 		    
 		    fileWriter.close();
-		    System.out.println("Not found : " + count);
 	    } catch (IOException ex) {
 	    	ex.printStackTrace();
 	    }

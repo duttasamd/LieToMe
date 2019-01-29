@@ -114,9 +114,13 @@ public class LieToMe {
         	}        	
         }
         
-		System.out.println("Total Lines : " + sentenceList.size()
-				+ " Correct: " + correct + " Incorrect: " + (falsePositives + falseNegatives) + " False +ve: " + falsePositives + " False -ve: " + falseNegatives
-				+ " Positive: " + positives + " Negative: " + negatives + " Total Processed: " + (positives + negatives) + " Correct %: " + ((double) correct/(positives + negatives) * 100));
+		if(DEBUG) {
+			System.out.println("Total Lines : " + sentenceList.size()
+			+ " Correct: " + correct + " Incorrect: " + (falsePositives + falseNegatives) + " False +ve: " + falsePositives + " False -ve: " + falseNegatives
+			+ " Positive: " + positives + " Negative: " + negatives + " Total Processed: " + (positives + negatives) + " Correct %: " + ((double) correct/(positives + negatives) * 100));
+		} else {
+			System.out.println("Total Lines Processed : " + sentenceList.size() + " Total positive estimates : " + positives + " Total negative estimates : " + negatives);
+		}
 
 		
 		System.out.println("Writing to outputfile.");
