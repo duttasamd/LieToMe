@@ -1,7 +1,5 @@
-# LieToMe
-SNLP Mini Project Universität Paderborn : Fact Checker
-
-(Group: SAM) Samrat Dutta \[6855850\], Atharva Pandey \[6854309\] \[GERBIL: LieToMe\]
+# LieToMe - A fact checker
+Statistical Natural Language Processing, Mini Project, Universität Paderborn
 
 Our objective was to create a fact checking algorithm, that rates a given sentence as true or false, based on the data it finds over the internet.
 
@@ -116,8 +114,6 @@ GERBIL TEST : LieToMe
 *MEMBERS :*
 
 Samrat Dutta \[6855850\] (dutta.sam.d\@gmail.com)
-
-Atharva Pandey \[6854309\] (razerblast\@gmail.com)
 
 Link to GIT source code :\
 https://github.com/duttasamd/LieToMe
